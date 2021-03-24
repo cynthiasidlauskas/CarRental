@@ -1,0 +1,449 @@
+CREATE DATABASE CarRental;
+--Create Table: Branch
+
+CREATE TABLE Branch(
+BranchID INT IDENTITY(1,1) PRIMARY KEY, 
+BranchName VARCHAR (50) NOT NULL,
+BranchAddress VARCHAR (50) NOT NULL,
+BranchCity VARCHAR (50) NOT NULL,
+BranchState VARCHAR (2) NOT NULL,
+BranchZipCode VARCHAR (20) NOT NULL);
+
+--Inserting Branch data
+
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Scranton-Scott', '123 Best Boss Blvd', 'Scranton', 'PA', '18503')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Scranton-Barnard', '6457 Cornell Hwy.', 'Scranton', 'PA', '18503')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Pawnee', '7888 Knope Drive', 'Pawnee', 'IN', '34456')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Bubba-Gump', '6732 Shrimp Boat Street', 'Greenbow', 'Al', '36744')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Gilmore', '456 Paul Anka Dr.', 'Stars Hallow', 'CT', '19905')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Fargo', '1111 You Betcha Blvd.', 'Bemidji', 'MN', '56619')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Isla Nublar', '65000000 Jurassic Road', 'Kauai', 'HI', '96703')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Delorean', '1985 Great Scott Dr.', 'Hill Valley', 'CA', '90210')
+INSERT INTO Branch(BranchName, BranchAddress, BranchCity, BranchState, BranchZipCode)
+VALUES('Upside Down', '11 Demogorgon Ave.', 'Hawkins', 'IN', '35565')
+
+--Create Table: Employee
+
+CREATE TABLE Employee(
+EmpID INT IDENTITY(1,1)PRIMARY KEY,
+BranchID INT FOREIGN KEY REFERENCES Branch(BranchID),
+ManagerID INT, 
+EmpFirstName VARCHAR (50) NOT NULL, 
+EmpLastName VARCHAR (50) NOT NULL,
+EmpDOB DATE NOT NULL, 
+EmpStreetAddress VARCHAR(50) NOT NULL,
+EmpCity VARCHAR (50) NOT NULL,
+EmpState VARCHAR (2) NOT NULL,
+EmpZipCode VARCHAR (20) NOT NULL,
+EmpSalary MONEY);
+
+--Inserting Employee data
+
+INSERT INTO Employee(BranchID, ManagerID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(1,2,'Constance','Vazquez','1986-10-30','200 MULBERRY ST','SCRANTON','PA', '18503','3100');
+INSERT INTO Employee(BranchID, ManagerID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(2,3,'Tasneem','Richmond','1989-10-30','305 PENN AVE','SCRANTON','PA', '18503','3400');
+INSERT INTO Employee(BranchID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(1, 'Hussein' ,'Powers','1992-11-25','401 PENN AVE','SCRANTON','PA', '18503','3000');
+INSERT INTO Employee(BranchID, ManagerID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(2,2,'Ayden' ,'Pearson','1994-11-30','210 VINE ST','SCRANTON','PA' ,'18503','3300');
+INSERT INTO Employee(BranchID, ManagerID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(4, 4, 'Makenzie', 'Meza','1996-12-07','284 VINE ST','SCRANTON','PA' ,'18503','3600');
+INSERT INTO Employee(BranchID, ManagerID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(5, 5, 'Aubrey' ,'Wainwright','1999-12-18','85 Silver Spear St.','Newton','NJ', '07860','3700');
+INSERT INTO Employee(BranchID, ManagerID, EmpFirstName,EmpLastName,EmpDOB,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpSalary)
+VALUES(7,7,'Murray' ,'Brett','1992-07-13','971 Fieldstone Avenue','Martinsville','VA', '24112','3200');
+
+--Create Table Vehicle Type
+
+CREATE TABLE VehicleType(
+VehicleTypeID INT IDENTITY(1,1) PRIMARY KEY, 
+VehicleType VARCHAR (50) NOT NULL);
+
+--Inserting VehicleType data
+
+INSERT INTO VehicleType(VehicleType)
+VALUES('Motorcycle');
+INSERT INTO VehicleType(VehicleType)
+VALUES('Automobile');
+INSERT INTO VehicleType(VehicleType)
+VALUES('Truck');
+
+--Create Table: Vehicle
+
+CREATE TABLE Vehicle(
+VehicleID INT IDENTITY(1,1) PRIMARY KEY, 
+VehicleVinNumber VARCHAR(50)NOT NULL, 
+VehicleAvailability BIT NOT NULL,
+VehicleMake VARCHAR(50) NOT NULL,
+VehicleModel VARCHAR(50) NOT NULL,
+VehicleTypeID INT FOREIGN KEY REFERENCES VehicleType(VehicleTypeID), 
+VehicleYear DATE NOT NULL,
+LastInspectedVehicleMileage INT NOT NULL, 
+VehicleRentalCharge MONEY, 
+Seats INT,
+CurrentBranchID INT FOREIGN KEY REFERENCES Branch(BranchID));
+
+--Inserting Vehicle data
+
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('1HGBH41JXMN10986','0','Toyota','Corolla',2, '2010','5432','$75', 2, 5);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('1FXFG44JXGA10546','1','Toyota','Prius',2, '2005','10522','$65', 1, 5);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('2DXFN84JRGY10554','1','Chrysler','Voyager',2, '2017','12355','$89', 4, 8 );
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('5DNFN54JEGC10347','1','Dodge','Journey',2, '2016','13322','$79', 4, 7);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('4GDFG44NMDS10563','1','Yamaha','Yoshimura',1, '2015','4032','$49', 5, 2);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('5GDFFG4NZDS10509','1','Yamaha','Akrapovic',1, '2009','8053','$59', 2, 2);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('9GDFFNBNZDS44532','1','Harley Davidson','Sportster',1, '2007','7504','$55', 1, 2);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('4ADFZFXNZDS44325','1','Ford','F250',3, '2003','15034','$149', 1, 5);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('4ANBNMUYZDS76488','1','Ford','F350',3, '2009','13457','$189', 4, 6);
+INSERT INTO Vehicle(VehicleVinNumber, VehicleAvailability, VehicleMake, VehicleModel, VehicleTypeID, VehicleYear, LastInspectedVehicleMileage, VehicleRentalCharge, CurrentBranchID, Seats)
+VALUES('6XDFGBHNZER44311','1','Chevy','Silverado',3, '2015','1640','$169', 5, 5);
+
+--Create Table: Customer
+
+CREATE TABLE Customer(
+CustID INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+CustFirstName VARCHAR(50) NOT NULL,
+CustLastName VARCHAR(50) NOT NULL,
+CustDOB DATE NOT NULL,
+CustContactNumber VARCHAR(13) NOT NULL,
+CustStreetAddress VARCHAR(50) NOT NULL,
+CustCity VARCHAR(50) NOT NULL,
+CustState VARCHAR(2)  NOT NULL,
+CustZipCode VARCHAR(5)  NOT NULL,
+CustDriversLicense VARCHAR(50) NOT NULL);
+
+--Inserting Customer data
+
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Boris',    'Cameron',  '1970-1-13',    '(618)663-5126',    '923 Arrowhead Drive',  'Lakeville',    'MN',   '55044',    'MN733520003');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Amelia',   'Arnold',   '1986-01-16',    '(620)234-9267',    '514 Longbranch Court', 'Springfield',  'OH',   '45066',    'OH878253956');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Ella',     'White',    '1999-10-21',   '(716)581-2638',    '34 Taylor Road',       'Reno', 'NV',   '89523',    'NV761249333');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Dylan',    'Terry',    '2001-10-22',   '(306)756-7717',    '8134 Hillcrest Court', 'Independence', 'KY',   '41051',    'KY161002909');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Andrea',   'Bailey',   '1963-10-27',   '(252)762-3607',    '24 Old Redwood Rd.',   'Springs',  'NY',   '12866',    'NY59111193');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense) 
+VALUES('Connor',   'Springer', '1959-10-19',   '(343)361-4687',    '836C Courtland Lane',  'Severna Park', 'MD',   '21146',    'MD150786506');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Abigail',  'Abraham',  '1992-10-09',    '(609)354-5184',    '256 Purple Finch St.', 'Merrimach',    'NH',   '03054',    'NH820510043');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Heather',  'Lewis',    '1998-11-09',   '(409)289-7451',    '7077 Wayne Dr.',       'Woodstock',    'GA',   '30188',    'GA24644307');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('David',    'Sutherland',   '1980-12-17',   '(561)362-4632',    '948 Mulberry Lane',    'Cocoa',    'FL',   '32927',    'FL823115041');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Hannah',   'Rodriguez',    '2000-03-16',    '(401)925-2338',    '23 Annadale Dr.',  'Port Jefferson Stattion',  'NY',   '11776',    'NY149651481');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Andrew',   'Bower',    '1955-03-23',    '(607)637-2846',    '8860 Wood Rd.',        'Lake Charles', 'LA',   '70605',    'LA852043006');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Anthony',  'Brown',    '1958-04-30',    '(435)545-9874',    '8644 Rock Creek Drive',    'Clermont', 'FL',   '34711',    'FL407876420');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Felicity', 'Garcia',   '1988-05-18',    '(657)228-4461',    '93 Ashley St.',        'Cornelius',    'NC',   '28031',    'NC703579619');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Grace',    'Clar', '1977-06-22',    '(231)662-6836',    '9616 Wild Rose Street',    'Harrisburg',   'PA',   '17109',    'PA206172491');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Audrey',   'Meto',  '1954-06-24',    '(684)258-4385',    '187 Cherry Drive',     'Asbury Park',  'NJ',   '07712',    'NJ141241032');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Bella',    'Smith',    '1971-07-13',    '(585)905-7053',    '57 Somerset Dr.',  'Pataskala',    'OH',   '43062',    'OH503951562');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Bernadette',   'Johnson',  '1976-07-25',    '(646)350-5517',    '788 Birchpond Dr.',    'Saugus ',  'MA',   '01906',    'MA505806866');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Frank',    'Underwood',    '1969-07-26',    '(510)430-7647',    '177 Rock Maple Street',    'Daneville',    'VA',   '24540',    'VA808416635');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Angela',   'Baker',    '2002-07-07', '(573)645-8335',    '9662 Princeton St.',       'Forney',   'TX',   '75126',    'TX59187325');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Christopher',  'Slater',   '1951-08-23',    '(434)995-8388',    '9787 Nicolls Rd.', 'Belmonta', 'MA',   '02478',    'MA586826079');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Dorothy',  'Thomas',   '1988-08-25',    '(229)334-8483',    '8732 Beaver Ridge Ave.',   'North Miami Beach',    'FL',   '33160',    'FL104858633');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Brandon',  'Arturo',   '1985-08-26',    '(307)885-8725',    '77 Birchwood St.', 'Circle Pines', 'MN',   '55014',    'MN555176711');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Edward',   'Thomson',  '1984-08-31',    '(321)500-6851',    '43 Colonial Rd.',  'Webster',  'NY',   '14580',    'NY62795355');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Alexandra', 'Allan',   '1987-09-17',    '(507)680-9577',    '748 S. Pheasant Street',   'Hanover Park', 'IL',   '60133',    'IL789810512');
+INSERT INTO Customer (CustFirstName, CustLastName, CustDOB, CustContactNumber, CustStreetAddress, CustCity, CustState, CustZipCode, CustDriversLicense)
+VALUES('Blake',    'Butler',   '1946-03-19', '(315)429-1503',    '568 Old Walnut St.',   'Naples',   'FL',   '34116',    'FL430846449');
+
+--Create Table: Reservation 
+
+CREATE TABLE Reservation( 
+ReservationID INT IDENTITY(1,1) PRIMARY KEY, 
+CustID INT FOREIGN KEY REFERENCES Customer(CustID), 
+VehicleID INT FOREIGN KEY REFERENCES Vehicle(VehicleID), 
+PickupLocation INT FOREIGN KEY REFERENCES Branch(BranchID), 
+ReturnLocation INT FOREIGN KEY REFERENCES Branch(BranchID), 
+PickupDate DATE, 
+ReturnDate DATE);
+
+--Inserting Reservation data
+
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(10, 1, '2020-10-01', '2020-10-07', 1, 3)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(11, 2 , '2020-10-09', '2020-10-20', 1, 1)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(1, 5, '2020-10-10', '2020-10-11', 5, 5)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(3, 4, '2020-11-08', '2020-11-15', 4, 7)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(5, 4, '2020-09-08', '2020-10-01', 1, 9)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(4, 9, '2020-09-11', '2020-11-04', 1, 2)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(2, 8, '2020-08-31', '2020-09-03', 1, 4)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(12, 8, '2020-08-21', '2020-09-23', 4, 4)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(6, 3, '2020-08-22', '2020-09-22', 3, 9)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(7, 6, '2020-08-19', '2020-09-20', 6, 6)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(8, 7, '2020-08-30', '2020-09-10', 7, 7)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(9, 10, '2020-07-20', '2020-09-19', 8, 3)
+INSERT INTO Reservation(CustID, VehicleID, PickupDate, ReturnDate, PickupLocation, ReturnLocation)
+VALUES(13, 3, '2020-09-24', '2020-09-29', 9, 3)
+
+--Create Table: Add On Products
+
+CREATE TABLE AddOnProducts(
+AddOnProductID INT IDENTITY(1,1) PRIMARY KEY,
+AddOnProductName VARCHAR (100), 
+AddOnPricePerDay MONEY)
+
+--Inserting Add On Products Data
+
+INSERT INTO AddOnProducts(AddOnProductName, AddOnPricePerDay) VALUES('Infant Carseat', 4.25)
+INSERT INTO AddOnProducts(AddOnProductName, AddOnPricePerDay) VALUES('Carseat for ages 1-5', 4.50)
+INSERT INTO AddOnProducts(AddOnProductName, AddOnPricePerDay) VALUES('Booster Seat', 4.00)
+INSERT INTO AddOnProducts(AddOnProductName, AddOnPricePerDay) VALUES('Garmin GPS', 5.00)
+INSERT INTO AddOnProducts(AddOnProductName, AddOnPricePerDay) VALUES('Satellite Radio', 3.00)
+
+--Create Table: Add On Lines
+
+CREATE TABLE AddOnLine(
+AddOnLineID INT IDENTITY (1,1) PRIMARY KEY,
+AddOnProductID INT FOREIGN KEY REFERENCES AddOnProducts(AddOnProductID),
+AddOnQty INT,
+ReservationID INT FOREIGN KEY REFERENCES Reservation(ReservationID))
+
+--Inserting Add On Lines Data
+
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(1, 1, 1)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(2, 1, 1)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 1)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(1, 2, 2)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(5, 1, 2)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(2, 2, 3)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(1, 1, 4)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(2, 1, 4)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 4)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(5, 1, 4)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(1, 2, 5)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(3, 1, 5)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(2, 2, 6)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 7)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(3, 1, 8)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 8)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(1, 1, 9)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(2, 1, 9)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 10)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 11)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(3, 1, 12)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(4, 1, 12)
+INSERT INTO AddOnLine(AddOnProductID, AddOnQty, ReservationID)
+VALUES(3, 1, 13)
+
+
+--Create Table: Rentals
+
+CREATE TABLE Rentals(
+RentalID INT IDENTITY(1,1) PRIMARY KEY, 
+EmpID INT FOREIGN KEY REFERENCES Employee(EmpID),  
+BranchID INT FOREIGN KEY REFERENCES Branch (BranchID), 
+ReservationID INT FOREIGN KEY REFERENCES Reservation(ReservationID));
+
+--Inserting Rental data
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(5, 1, 1)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID))
+VALUES(2, 2, 2)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(7, 5, 3)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(6, 4, 4)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(4, 1, 5)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(3, 1, 6)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(3, 1, 7)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(6, 4, 8)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(6, 3, 9)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(5, 6, 10)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(7, 7, 11)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(2, 8, 12)
+
+INSERT INTO Rentals(EmpID, BranchID, ReservationID)
+VALUES(3, 9, 13)
+
+--Create Table: Inspection 
+
+CREATE TABLE Inspection(
+InspectionID INT IDENTITY(1,1) PRIMARY KEY, 
+Remarks NVARCHAR (100),
+RentalID INT FOREIGN KEY REFERENCES Rentals(RentalID));
+
+--Inserting Inspection data
+
+INSERT INTO Inspection (Remarks,RentalID)
+VALUES ('interior damage',5);
+INSERT INTO Inspection (Remarks,RentalID)
+VALUES (' an unpleasant scent in the car',1);
+INSERT INTO Inspection (Remarks,RentalID)
+VALUES ('the side mirrors does not fold in',7);
+INSERT INTO Inspection (Remarks,RentalID)
+VALUES ('Front Seat Area Dirty',8);
+--Create Table: Insurance
+
+CREATE TABLE Insurance(
+InsuranceID INT IDENTITY(1,1) PRIMARY KEY, 
+InsuranceName VARCHAR(100), 
+InsurancePolicy  VARCHAR(100),
+InsuranceDescription  VARCHAR(250),
+InsuranceCost MONEY);
+
+--Inserting Insurance data
+
+INSERT INTO Insurance VALUES('Liability Insurance Supplement', 'LIS', 'Provides up to $1 million of increased protection should bodily injury and property damage claims be made against you.', 19.99)
+INSERT INTO Insurance VALUES('Collision Damage Waiver', 'CDW',
+'Covers you in case of an accident or other event that causes damage to your rental car.', 59.99)
+INSERT INTO Insurance VALUES('Loss Damage Waiver', 'LDW',
+'Waives your financial responsibility for any loss or damage incurred to the rental vehicle.', 11.99)
+INSERT INTO Insurance VALUES('Personal Accident Insurance/Personal Effects Coverage', 'PAI/PEC',
+'Covers your medical expenses and reimburses you for any loss or damage of valuables.', 9.99)
+
+--Create Table: Rental Insurance 
+
+CREATE TABLE RentalInsurance(
+InsuranceID INT FOREIGN KEY REFERENCES Insurance(InsuranceID), 
+RentalID INT FOREIGN KEY REFERENCES Rentals(RentalID),
+PRIMARY KEY (InsuranceID, RentalID));
+
+--Inserting Rental Insurance data
+
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (1,1)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (2,2)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (2,3)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (2,4)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (3,5)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (4,6)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (4,7)
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (1,8);
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (1,9);
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (1,10);
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (2,11);
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (3,12);
+INSERT INTO RentalInsurance(InsuranceID, RentalID)
+VALUES (4,13);
+
+
+--Create Table: Payment
+
+CREATE TABLE Payment(
+PaymentID INT IDENTITY(1,1) PRIMARY KEY,
+PaymentDate DATE, 
+PaymentAmount MONEY,
+ReservationID INT FOREIGN KEY REFERENCES Reservation(ReservationID));
+
+--Inserting Payment data
+
+INSERT INTO Payment (ReservationID, PaymentAmount, PaymentDate)
+SELECT
+	r.ReservationID
+	,(SUM(aol.AddOnQty * aop.AddOnPricePerDay) + v.VehicleRentalCharge + i.InsuranceCost) * DATEDIFF(DAY,PickupDate, ReturnDate) PaymentAmount
+	,r.PickupDate PaymentDate
+
+FROM Reservation r
+	INNER JOIN Vehicle v ON r.VehicleID = v.VehicleID
+JOIN AddOnLine aol ON r.ReservationID = aol.ReservationID
+JOIN AddOnProducts  aop ON aop.AddOnProductID = aol.AddOnProductID
+
+JOIN Customer c ON c.CustID = r.CustID
+JOIN Rentals rr ON rr.ReservationID = r.ReservationID
+JOIN RentalInsurance ri ON ri.RentalID = rr.RentalID
+JOIN Insurance i ON i.InsuranceID = ri.InsuranceID
+WHERE r.reservationID NOT IN (SELECT ReservationID FROM Payment)
+GROUP BY r.ReservationID, v.VehicleRentalCharge, i.InsuranceCost, r.PickupDate, r.ReturnDate
+
+
+
