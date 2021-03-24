@@ -33,20 +33,54 @@ We've created an in-depth car rental database that stores a variety of informati
  - Any damages that are made are to be charged to the customer’s card if they have no insurance.  
  - Customer must have insurance or add insurance policy at the checkout desk.
 
-# ERD
-![Entity Relationship Diagram for a Car Rental database.](https://photos.app.goo.gl/wB3c1QGqg6vB2XCQ6)
+# ERD  
+![Entity Relationship Diagram for a Car Rental database.](https://user-images.githubusercontent.com/30435993/112345369-f779ca80-8c92-11eb-815d-d5e460ae5241.jpg)  
+
+
 
 # The Application
 The application is very simple. It simply allows us to see what the revenues are for any branches we select. 
 
 ## Home.php
-![Before selections are made](https://drive.google.com/file/d/1oSKtamNJUGrbWDrydOO01PNNb6xTQhPc/view?usp=sharing)
-![After selections are made](https://drive.google.com/file/d/1C5ZzF_6GMx48lUMC69VCdnkPzBFYPob5/view?usp=sharing)
-![Quick look at the code](https://drive.google.com/file/d/1FBUB8JvkJSxt1N5qFjBvG05U-L_Far-w/view?usp=sharing)
+This is an image showing how the application looks before any selections are made. 
+It also features a clear button to clear selections.  
+
+
+![](https://user-images.githubusercontent.com/30435993/112345523-1d06d400-8c93-11eb-866f-de3e375964d4.jpg)  
+
+
+Now, the user has selected the branches they would like to view the revenues for. The user simply needs to click the Submit button to proceed.   
+
+![](https://user-images.githubusercontent.com/30435993/112345552-255f0f00-8c93-11eb-9e0d-25658ef85f60.jpg)  
+
+
+Now, let's take a deeper look at the code.  
+ - Line 54 is using JavaScript to incorporate a ‘Select All’ button
+ - Line 68 tells the information where to go after the Submit button is pressed
+ - Checkboxes are defined under the name ‘branch[]’
+ 
+![](https://user-images.githubusercontent.com/30435993/112345612-3019a400-8c93-11eb-85ea-b62353c9c108.png)  
+
+
 
 ## Details.php
-![All branch selections are now shown](https://drive.google.com/file/d/15yYsDc_s9vRuKcU2lj0Q_fbSZH_zmUl-/view?usp=sharing)
-![Quick look at the code](https://drive.google.com/file/d/1bPMFaNoC_hHvf_yj_I6h8tlp3zCqEK-p/view?usp=sharing)
+All the branch revenues are now shown. 
+![](https://user-images.githubusercontent.com/30435993/112345645-3871df00-8c93-11eb-89e8-20f31d5d0609.jpg)  
+
+
+
+Now, let's take a deeper look at the code. 
+- Line 83 – Gathers the POST information from home.php and puts it into an array
+- Line 85 – Separates contents of the array with  ‘ ,  ‘  between 
+- Line 87 – The database query is defined
+- Line 92- Each Branch selection from home.php is put into the Where In statement 
+- Line 97- Connects to the database with error handling
+- Line 101- Put the results from the database query into a table
+- Line 113- JavaScript that makes the ‘Restart’ button go back to home.php
+
+
+![](https://user-images.githubusercontent.com/30435993/112345679-3f98ed00-8c93-11eb-9d52-eaaea69548c0.png)
+
 
 # Video Demo
 [Click here to see video demo](https://drive.google.com/file/d/1koc1Up4iNxryvPISiJ39ByST-LQb5JPK/view?usp=sharing)
